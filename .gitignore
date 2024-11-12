@@ -1,0 +1,9 @@
+.vscode
+*/.cph
+samples*/
+*.ans
+*.in
+*.exe
+test*
+tmp*
+hide*
