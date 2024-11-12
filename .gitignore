@@ -1,5 +1,5 @@
-.vscode
-*/.cph
+.vscode/
+.cph/
 samples*/
 *.ans
 *.in
