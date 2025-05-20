@@ -39,7 +39,7 @@ signed main(void) {
     f.getLimit(a);
     s.getLimit(a);
 
-    cout << f.checkSpeed() << '\n';
-    cout << s.checkSpeed() << '\n';;
+    cout << !f.checkSpeed() << '\n';
+    cout << !s.checkSpeed() << '\n';;
     system("pause");
 }

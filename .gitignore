@@ -8,5 +8,6 @@ test*
 tmp*
 hide*
 a*
-test*
+test/
 *.txt
+wtf/
