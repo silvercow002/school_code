@@ -12,6 +12,7 @@ https://www.coursera.org/learn/c-plus-plus-b/lecture/dqNKI/1-5-example-poker-pro
 #include <algorithm>
 
 #include<map>
+#include <omp.h>
 
 using namespace std;
 
@@ -101,8 +102,6 @@ bool is_flush(vector<card> &hand) {
 bool is_straight(vector<card> &hand) {
     sort(hand.begin(), hand.end(), [](const card& a, const card& b) 			
 	{ return (a.get_pips()).get_pips() < (b.get_pips()).get_pips();} );
-    // cin >> seed;
-	// print(hand);
 
     int pips_v[5]; 
     int i = 0;
@@ -156,13 +155,13 @@ bool is_three_kind(vector<card> &hand) {
 }
 
 bool is_one_pair(vector<card> &hand) {
-    return pairing(hand, 2);
+    return pairing(hand, 2) == 1;
 }
 
 bool is_two_pair(vector<card> &hand) {
     return pairing(hand, 2) == 2;
 }
-
+//
 int main()
 {
     int flush_count = 0;
@@ -193,8 +192,7 @@ int main()
 
 
         if (is_flush(hand)) {
-            flush_count++;
-        }
+            flush_count++; }
         if (is_straight(hand)) {
             str_count++;
         }
@@ -218,14 +216,37 @@ int main()
         }
     }
 
-    cout << "\nStraight Flushes: " << str_flush_count << " out of " << num_shuffles << endl;
-    cout << "Four of a Kind: " << four_kind_count << " out of " << num_shuffles << endl;
-    cout << "Full House: " << full_house_count << " out of " << num_shuffles << endl;
-    cout << "Flushes: " << flush_count << " out of " << num_shuffles << endl;
-    cout << "Straights: " << str_count << " out of " << num_shuffles << endl;
-    cout << "Three of a kind: "  << three_kind_count << " out of " << num_shuffles << endl;
-    cout << "Two Pair: " << two_pair_couut << " out of " << num_shuffles << endl;
-    cout << "One Pair: " << one_pair_couut << " out of " << num_shuffles << endl;
+    // cout << "\nStraight Flushes: " << str_flush_count << " out of " << num_shuffles << endl;
+    cout << "Straight Flushes: " << str_flush_count << '/' << num_shuffles << '='
+        << static_cast<double>(str_flush_count) / num_shuffles << '\n';
+
+    // cout << "Four of a Kind: " << four_kind_count << " out of " << num_shuffles << endl;
+    cout << "Four of a Kind: " << four_kind_count << '/' << num_shuffles << '='
+        << static_cast<double>(four_kind_count) / num_shuffles << '\n'; 
+
+    // cout << "Full House: " << full_house_count << " out of " << num_shuffles << endl;
+    cout << "Full House: " << full_house_count << '/' << num_shuffles << '='
+        << static_cast<double>(full_house_count) / num_shuffles << '\n';
+
+    // cout << "Flushes: " << flush_count << " out of " << num_shuffles << endl;
+    cout << "Flushes: " << flush_count << '/' << num_shuffles << '='
+        << static_cast<double>(flush_count) / num_shuffles << '\n';
+
+    // cout << "Straights: " << str_count << " out of " << num_shuffles << endl;
+    cout << "Straights: " << str_count << '/' << num_shuffles << '='
+        << static_cast<double>(str_count) / num_shuffles << '\n';
+
+    // cout << "Three of a kind: "  << three_kind_count << " out of " << num_shuffles << endl;
+    cout << "Three of a kind: " << three_kind_count << '/' << num_shuffles << '='
+        << static_cast<double>(three_kind_count) << '\n';
+
+    // cout << "Two Pair: " << two_pair_couut << " out of " << num_shuffles << endl;
+    cout << "Two Pair: " << two_pair_couut << '/' << num_shuffles << '='
+        << static_cast<double>(two_pair_couut) << '\n';
+
+    // cout << "One Pair: " << one_pair_couut << " out of " << num_shuffles << endl;
+    cout << "One Pair: " << one_pair_couut << '/' << num_shuffles << '='
+        << static_cast<double>(one_pair_couut) / num_shuffles << '\n';
 
     return 0;
 }
