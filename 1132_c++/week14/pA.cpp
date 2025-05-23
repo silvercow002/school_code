@@ -100,8 +100,10 @@ bool is_flush(vector<card> &hand) {
 
 bool is_straight(vector<card> &hand) {
     sort(hand.begin(), hand.end(), [](const card& a, const card& b) 			
-		{ return (a.get_pips()).get_pips() < (b.get_pips()).get_pips();} );
+	{ return (a.get_pips()).get_pips() < (b.get_pips()).get_pips();} );
+    // cin >> seed;
 	// print(hand);
+
     int pips_v[5]; 
     int i = 0;
     for (auto p=hand.begin(); p!=hand.end(); ++p) {
@@ -126,14 +128,14 @@ bool is_straight_flush(vector<card> &hand) {
 
 
 int pairing(vector<card> &hand, int t) {
-    // map<int, int> deck;
-    int deck[13] = {};
+    map<int, int> deck;
+    // int deck[13] = {};
     for (const auto &it: hand) {
         deck[static_cast<int>(it.get_pips().get_pips())-1]++;
     }
     int cnt = 0;
     for (auto it : deck) {
-        if (it == t) {
+        if (it.second == t) {
             cnt++;
         }
     }
@@ -172,11 +174,11 @@ int main()
     int one_pair_couut = 0;
     int two_pair_couut = 0;
 
-    int num_shuffles;
-    int seed;
+    int num_shuffles = 10000;;
+    int seed = 10;
     cout << "How many shuffles? "; 
     cin >> num_shuffles;
-    cout << "set the seed";
+    cout << "set the seed ";
     cin >> seed;
     vector<card> deck(52);
     srand(seed); 
@@ -216,7 +218,7 @@ int main()
         }
     }
 
-    cout << "Straight Flushes: " << str_flush_count << " out of " << num_shuffles << endl;
+    cout << "\nStraight Flushes: " << str_flush_count << " out of " << num_shuffles << endl;
     cout << "Four of a Kind: " << four_kind_count << " out of " << num_shuffles << endl;
     cout << "Full House: " << full_house_count << " out of " << num_shuffles << endl;
     cout << "Flushes: " << flush_count << " out of " << num_shuffles << endl;
